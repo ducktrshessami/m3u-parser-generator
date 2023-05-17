@@ -20,7 +20,10 @@ class M3uParser {
         const attributeValuePair = attributesString.split('" ');
         attributeValuePair.forEach((item) => {
             const [key, value] = item.split('="');
-            attributes[key] = value ? value.replace('"', '') : value;
+            if (!value) {
+                throw new Error(`Attribute value can't be null!`);
+            }
+            attributes[key] = value.replace('"', '');
         });
         return attributes;
     }
